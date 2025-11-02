@@ -1,0 +1,32 @@
+# Python Tip Agent Configuration Template
+# Copy this file to .env and fill in your credentials
+
+# OpenAI API (Optional - for unlimited tip generation)
+# Get your API key from: https://platform.openai.com/api-keys
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Email Configuration (Required for email notifications)
+# For Gmail, you need to use an "App Password" not your regular password
+# Generate one at: https://myaccount.google.com/apppasswords
+SENDER_EMAIL=your_email@gmail.com
+SENDER_PASSWORD=your_app_password_here
+RECIPIENT_EMAIL=Sheida.shaban18@gmail.com
+
+# SMTP Settings (Default is Gmail)
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+
+# GitHub Repository Configuration
+GITHUB_REPO_URL=https://github.com/Sheidashaban/Python_Tips
+GITHUB_BRANCH=master
+
+# Flask Server Configuration
+FLASK_PORT=5000
+FLASK_DEBUG=False
+FLASK_SECRET_KEY=your_secret_key_here
+APPROVAL_BASE_URL=http://localhost:5000
+
+# Scheduler Configuration
+# Time in 24-hour format (HH:MM)
+DAILY_RUN_TIME=09:00
+

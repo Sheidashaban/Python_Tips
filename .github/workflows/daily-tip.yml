@@ -12,11 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
+      - name: Checkout agent repository
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
+      
+      - name: Clone Python_Tips repository
+        run: |
+          git clone https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/Sheidashaban/Python_Tips.git python_tips_repo
+          cd python_tips_repo
+          git config user.name "Python Tip Bot"
+          git config user.email "python-tip-bot@github-actions.com"
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -44,18 +51,21 @@ jobs:
           echo "Starting daily Python tip generation..."
           python main_agent.py run
       
-      - name: Commit and push new tip to repository
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Push new tip to Python_Tips repository
         run: |
-          git config user.name "Python Tip Bot"
-          git config user.email "python-tip-bot@github-actions.com"
+          # Copy generated tip to Python_Tips repo
+          cp tips/*.ipynb python_tips_repo/tips/ 2>/dev/null || mkdir -p python_tips_repo/tips && cp tips/*.ipynb python_tips_repo/tips/
+          cp tip_history.json python_tips_repo/ 2>/dev/null || true
+          
+          # Commit and push to Python_Tips repo
+          cd python_tips_repo
           git add tips/*.ipynb tip_history.json 2>/dev/null || true
+          
           if git diff --staged --quiet; then
             echo "No new tips to commit"
           else
             git commit -m "🐍 Add daily Python tip [automated]"
             git push origin master
-            echo "Successfully pushed new tip to repository!"
+            echo "✅ Successfully pushed new tip to Python_Tips repository!"
           fi
 
