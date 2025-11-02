@@ -29,6 +29,12 @@
       "shortname": "context_managers_with_statement",
       "filename": "Python_tip_context_managers_with_statement.ipynb",
       "date": "2025-11-02T12:41:20.364517"
+    },
+    {
+      "headline": "Using *args and **kwargs",
+      "shortname": "using_args_and_kwargs",
+      "filename": "Python_tip_using_args_and_kwargs.ipynb",
+      "date": "2025-11-02T12:56:28.606832"
     }
   ]
 }
