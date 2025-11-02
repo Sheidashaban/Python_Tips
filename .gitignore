@@ -1,0 +1,58 @@
+# Environment variables - NEVER commit these!
+.env
+config.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Flask
+instance/
+.webassets-cache
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific - DO NOT commit secrets!
+pending_approvals.json
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+push_to_github.bat
+setup_windows_task.bat
+setup_windows_task_improved.bat
+start_scheduler_10am.bat
+setup_scheduler.md
+FIX_GITHUB_AUTH.md
+QUICK_FIX.md

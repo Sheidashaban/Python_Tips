@@ -1,0 +1,61 @@
+name: Daily Python Tip Generator
+
+on:
+  schedule:
+    # Runs at 10:00 AM UTC daily (adjust for your timezone)
+    # For EST: use 15:00, For PST: use 18:00, For CET: use 09:00
+    - cron: '0 10 * * *'
+  workflow_dispatch:  # Allows manual testing
+
+jobs:
+  generate-and-send-tip:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Generate and send daily Python tip
+        env:
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          GITHUB_REPO_URL: https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/Sheidashaban/Python_Tips.git
+          GITHUB_BRANCH: master
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SMTP_SERVER: smtp.gmail.com
+          SMTP_PORT: 587
+          APPROVAL_BASE_URL: https://github.com/Sheidashaban/Python_Tips
+          DAILY_RUN_TIME: "10:00"
+        run: |
+          echo "Starting daily Python tip generation..."
+          python main_agent.py run
+      
+      - name: Commit and push new tip to repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git config user.name "Python Tip Bot"
+          git config user.email "python-tip-bot@github-actions.com"
+          git add tips/*.ipynb tip_history.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No new tips to commit"
+          else
+            git commit -m "🐍 Add daily Python tip [automated]"
+            git push origin master
+            echo "Successfully pushed new tip to repository!"
+          fi
+
