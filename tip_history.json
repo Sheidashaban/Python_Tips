@@ -35,6 +35,12 @@
       "shortname": "using_args_and_kwargs",
       "filename": "Python_tip_using_args_and_kwargs.ipynb",
       "date": "2025-11-02T12:56:28.606832"
+    },
+    {
+      "headline": "Efficient String Concatenation with Join",
+      "shortname": "efficient_string_concatenation_with_join",
+      "filename": "Python_tip_efficient_string_concatenation_with_join.ipynb",
+      "date": "2025-11-02T14:01:17.385243"
     }
   ]
 }
