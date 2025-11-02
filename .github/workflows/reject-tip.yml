@@ -1,0 +1,53 @@
+name: Reject Tip
+
+on:
+  workflow_dispatch:  # Manual trigger only
+    inputs:
+      tip_filename:
+        description: 'Tip filename to reject (leave empty for latest)'
+        required: false
+        type: string
+
+jobs:
+  reject-tip:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout github_actions repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+      
+      - name: Delete rejected tip
+        run: |
+          # Ensure drafts directory exists
+          if [ ! -d "drafts" ] || [ -z "$(ls -A drafts/*.ipynb 2>/dev/null)" ]; then
+            echo "❌ No draft tips found to reject"
+            exit 1
+          fi
+          
+          # Get the tip to reject (latest or specified)
+          if [ -n "${{ github.event.inputs.tip_filename }}" ]; then
+            TIP_FILE="drafts/${{ github.event.inputs.tip_filename }}"
+          else
+            TIP_FILE=$(ls -t drafts/*.ipynb | head -1)
+          fi
+          
+          if [ ! -f "$TIP_FILE" ]; then
+            echo "❌ Tip file not found: $TIP_FILE"
+            exit 1
+          fi
+          
+          echo "🗑️ Rejecting tip: $TIP_FILE"
+          
+          # Delete the tip
+          rm -f "$TIP_FILE"
+          
+          # Commit the deletion
+          git add drafts/
+          git commit -m "Reject: Remove tip $(basename $TIP_FILE)"
+          git push origin main
+          
+          echo "✅ Tip rejected and removed"
+

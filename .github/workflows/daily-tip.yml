@@ -52,31 +52,28 @@ jobs:
           echo "Starting daily Python tip generation..."
           python main_agent.py run
       
-      - name: Push new tip to Python_Tips repository
+      - name: Save tip as draft (pending approval)
         run: |
-          # Ensure tips directory exists in Python_Tips repo
-          mkdir -p python_tips_repo/tips
+          # Configure git
+          git config user.name "Python Tip Bot"
+          git config user.email "python-tip-bot@github-actions.com"
           
-          # Copy generated tip to Python_Tips repo
+          # Create drafts directory
+          mkdir -p drafts
+          
+          # Copy generated tip to drafts folder
           if ls tips/*.ipynb 1> /dev/null 2>&1; then
-            cp tips/*.ipynb python_tips_repo/tips/
+            cp tips/*.ipynb drafts/
+            echo "TIP_FILENAME=$(ls tips/*.ipynb | xargs basename)" >> $GITHUB_ENV
           fi
           
-          # Copy tip history if exists
-          if [ -f tip_history.json ]; then
-            cp tip_history.json python_tips_repo/
-          fi
+          # Commit draft to github_actions repo
+          git add drafts/*.ipynb
+          git add tip_history.json 2>/dev/null || true
+          git commit -m "Draft: New Python tip pending approval" || echo "No changes to commit"
+          git push origin main
           
-          # Commit and push to Python_Tips repo
-          cd python_tips_repo
-          git add tips/*.ipynb tip_history.json 2>/dev/null || git add tips/ tip_history.json
-          
-          if git diff --staged --quiet; then
-            echo "No new tips to commit"
-          else
-            git pull origin master --rebase || true
-            git commit -m "🐍 Add daily Python tip [automated]"
-            git push origin master
-            echo "✅ Successfully pushed new tip to Python_Tips repository!"
-          fi
+          echo "✅ Tip saved as draft. Check your email to approve or reject!"
+          echo "📧 Email sent with tip preview"
+          echo "👉 To approve: Go to Actions → 'Approve and Publish Tip' → Run workflow"
 

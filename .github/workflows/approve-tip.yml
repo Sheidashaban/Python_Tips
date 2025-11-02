@@ -1,0 +1,98 @@
+name: Approve and Publish Tip
+
+on:
+  workflow_dispatch:  # Manual trigger only
+    inputs:
+      tip_filename:
+        description: 'Tip filename to approve (leave empty for latest)'
+        required: false
+        type: string
+
+jobs:
+  approve-and-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout github_actions repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+      
+      - name: Clone Python_Tips repository
+        run: |
+          git clone https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/Sheidashaban/Python_Tips.git python_tips_repo
+          cd python_tips_repo
+          git config user.name "Python Tip Bot"
+          git config user.email "python-tip-bot@github-actions.com"
+          git pull origin master
+      
+      - name: Publish approved tip
+        run: |
+          # Ensure drafts directory exists
+          if [ ! -d "drafts" ] || [ -z "$(ls -A drafts/*.ipynb 2>/dev/null)" ]; then
+            echo "❌ No draft tips found to approve"
+            exit 1
+          fi
+          
+          # Get the tip to approve (latest or specified)
+          if [ -n "${{ github.event.inputs.tip_filename }}" ]; then
+            TIP_FILE="drafts/${{ github.event.inputs.tip_filename }}"
+          else
+            TIP_FILE=$(ls -t drafts/*.ipynb | head -1)
+          fi
+          
+          if [ ! -f "$TIP_FILE" ]; then
+            echo "❌ Tip file not found: $TIP_FILE"
+            exit 1
+          fi
+          
+          echo "📝 Approving tip: $TIP_FILE"
+          
+          # Ensure tips directory exists in Python_Tips repo
+          mkdir -p python_tips_repo/tips
+          
+          # Copy approved tip to Python_Tips repo
+          cp "$TIP_FILE" python_tips_repo/tips/
+          
+          # Copy tip history if exists
+          if [ -f tip_history.json ]; then
+            cp tip_history.json python_tips_repo/
+          fi
+          
+          # Get tip name for commit message
+          TIP_NAME=$(basename "$TIP_FILE")
+          
+          # Commit and push to Python_Tips repo
+          cd python_tips_repo
+          git add tips/"$TIP_NAME" tip_history.json 2>/dev/null || git add tips/"$TIP_NAME"
+          
+          if git diff --staged --quiet; then
+            echo "⚠️ No changes to commit"
+          else
+            git pull origin master --rebase || true
+            git commit -m "🐍 Add approved Python tip: $TIP_NAME"
+            git push origin master
+            echo "✅ Successfully published tip to Python_Tips repository!"
+          fi
+      
+      - name: Clean up approved draft
+        run: |
+          # Remove the approved draft
+          if [ -n "${{ github.event.inputs.tip_filename }}" ]; then
+            rm -f "drafts/${{ github.event.inputs.tip_filename }}"
+          else
+            # Remove the latest draft
+            LATEST_DRAFT=$(ls -t drafts/*.ipynb 2>/dev/null | head -1)
+            if [ -f "$LATEST_DRAFT" ]; then
+              rm -f "$LATEST_DRAFT"
+            fi
+          fi
+          
+          # Commit the cleanup
+          git add drafts/
+          git commit -m "Clean up: Remove approved draft" || echo "No cleanup needed"
+          git push origin main || true
+          
+          echo "🧹 Draft cleaned up"
+
