@@ -23,6 +23,12 @@
       "shortname": "using_f_strings_for_formatting",
       "filename": "Python_tip_using_f_strings_for_formatting.ipynb",
       "date": "2025-11-02T19:46:41.796487"
+    },
+    {
+      "headline": "Context managers with statement",
+      "shortname": "context_managers_with_statement",
+      "filename": "Python_tip_context_managers_with_statement.ipynb",
+      "date": "2025-11-02T12:37:09.046313"
     }
   ]
 }
