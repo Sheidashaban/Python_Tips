@@ -17,6 +17,12 @@
       "shortname": "list_comprehension_for_cleaner_code",
       "filename": "Python_tip_list_comprehension_for_cleaner_code.py",
       "date": "2025-11-02T19:19:33.681436"
+    },
+    {
+      "headline": "Using f-strings for formatting",
+      "shortname": "using_f_strings_for_formatting",
+      "filename": "Python_tip_using_f_strings_for_formatting.ipynb",
+      "date": "2025-11-02T19:46:41.796487"
     }
   ]
 }
