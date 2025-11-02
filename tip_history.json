@@ -1,0 +1,22 @@
+{
+  "tips": [
+    {
+      "headline": "Using enumerate for index and value",
+      "shortname": "using_enumerate_for_index_and_value",
+      "filename": "Python_tip_using_enumerate_for_index_and_value.py",
+      "date": "2025-11-02T19:04:54.128067"
+    },
+    {
+      "headline": "Dictionary get method with default value",
+      "shortname": "dictionary_get_method_with_default_value",
+      "filename": "Python_tip_dictionary_get_method_with_default_value.py",
+      "date": "2025-11-02T19:09:31.253679"
+    },
+    {
+      "headline": "List comprehension for cleaner code",
+      "shortname": "list_comprehension_for_cleaner_code",
+      "filename": "Python_tip_list_comprehension_for_cleaner_code.py",
+      "date": "2025-11-02T19:19:33.681436"
+    }
+  ]
+}
