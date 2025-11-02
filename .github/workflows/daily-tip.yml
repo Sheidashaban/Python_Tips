@@ -24,6 +24,7 @@ jobs:
           cd python_tips_repo
           git config user.name "Python Tip Bot"
           git config user.email "python-tip-bot@github-actions.com"
+          git pull origin master
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -53,17 +54,27 @@ jobs:
       
       - name: Push new tip to Python_Tips repository
         run: |
+          # Ensure tips directory exists in Python_Tips repo
+          mkdir -p python_tips_repo/tips
+          
           # Copy generated tip to Python_Tips repo
-          cp tips/*.ipynb python_tips_repo/tips/ 2>/dev/null || mkdir -p python_tips_repo/tips && cp tips/*.ipynb python_tips_repo/tips/
-          cp tip_history.json python_tips_repo/ 2>/dev/null || true
+          if ls tips/*.ipynb 1> /dev/null 2>&1; then
+            cp tips/*.ipynb python_tips_repo/tips/
+          fi
+          
+          # Copy tip history if exists
+          if [ -f tip_history.json ]; then
+            cp tip_history.json python_tips_repo/
+          fi
           
           # Commit and push to Python_Tips repo
           cd python_tips_repo
-          git add tips/*.ipynb tip_history.json 2>/dev/null || true
+          git add tips/*.ipynb tip_history.json 2>/dev/null || git add tips/ tip_history.json
           
           if git diff --staged --quiet; then
             echo "No new tips to commit"
           else
+            git pull origin master --rebase || true
             git commit -m "🐍 Add daily Python tip [automated]"
             git push origin master
             echo "✅ Successfully pushed new tip to Python_Tips repository!"
