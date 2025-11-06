@@ -47,6 +47,18 @@
       "shortname": "avoid_repeated_iterations_with_the_any_function",
       "filename": "Python_tip_avoid_repeated_iterations_with_the_any_function.ipynb",
       "date": "2025-11-03T10:12:28.491931"
+    },
+    {
+      "headline": "Avoid Mutating a List While Iterating",
+      "shortname": "avoid_mutating_a_list_while_iterating",
+      "filename": "Python_tip_avoid_mutating_a_list_while_iterating.ipynb",
+      "date": "2025-11-04T10:12:12.811792"
+    },
+    {
+      "headline": "Using List Comprehensions for String Manipulation",
+      "shortname": "using_list_comprehensions_for_string_manipulation",
+      "filename": "Python_tip_using_list_comprehensions_for_string_manipulation.ipynb",
+      "date": "2025-11-05T10:11:46.462774"
     }
   ]
 }
