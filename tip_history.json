@@ -95,6 +95,18 @@
       "shortname": "using_enumerate_for_index_value_pairs",
       "filename": "Python_tip_using_enumerate_for_index_value_pairs.ipynb",
       "date": "2025-11-08T02:46:17.492757"
+    },
+    {
+      "headline": "Unpacking Multiple Return Values in Python",
+      "shortname": "unpacking_multiple_return_values_in_python",
+      "filename": "Python_tip_unpacking_multiple_return_values_in_python.ipynb",
+      "date": "2025-11-08T02:47:57.639272"
+    },
+    {
+      "headline": "Simplify List Comprehensions with Multiple Conditions",
+      "shortname": "simplify_list_comprehensions_with_multiple_conditions",
+      "filename": "Python_tip_simplify_list_comprehensions_with_multiple_conditions.ipynb",
+      "date": "2025-11-08T02:56:43.032099"
     }
   ]
 }
