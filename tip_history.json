@@ -89,6 +89,12 @@
       "shortname": "using_list_comprehensions_with_conditional_assignment",
       "filename": "Python_tip_using_list_comprehensions_with_conditional_assignment.ipynb",
       "date": "2025-11-08T02:37:03.010513"
+    },
+    {
+      "headline": "Using Enumerate for Index-Value Pairs",
+      "shortname": "using_enumerate_for_index_value_pairs",
+      "filename": "Python_tip_using_enumerate_for_index_value_pairs.ipynb",
+      "date": "2025-11-08T02:46:17.492757"
     }
   ]
 }
