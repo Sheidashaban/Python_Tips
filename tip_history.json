@@ -59,6 +59,36 @@
       "shortname": "using_list_comprehensions_for_string_manipulation",
       "filename": "Python_tip_using_list_comprehensions_for_string_manipulation.ipynb",
       "date": "2025-11-05T10:11:46.462774"
+    },
+    {
+      "headline": "Avoid mutable default arguments in function definitions",
+      "shortname": "avoid_mutable_default_arguments_in_function_definitions",
+      "filename": "Python_tip_avoid_mutable_default_arguments_in_function_definitions.ipynb",
+      "date": "2025-11-06T10:12:27.529996"
+    },
+    {
+      "headline": "Use list comprehensions with conditional logic for concise filtering.",
+      "shortname": "use_list_comprehensions_with_conditional_logic_for_concise_filtering",
+      "filename": "Python_tip_use_list_comprehensions_with_conditional_logic_for_concise_filtering.ipynb",
+      "date": "2025-11-07T10:11:40.113584"
+    },
+    {
+      "headline": "Avoid modifying a list while iterating over it",
+      "shortname": "avoid_modifying_a_list_while_iterating_over_it",
+      "filename": "Python_tip_avoid_modifying_a_list_while_iterating_over_it.ipynb",
+      "date": "2025-11-08T02:20:38.023609"
+    },
+    {
+      "headline": "Using enumerate() for Index and Element in a List",
+      "shortname": "using_enumerate_for_index_and_element_in_a_list",
+      "filename": "Python_tip_using_enumerate_for_index_and_element_in_a_list.ipynb",
+      "date": "2025-11-08T02:28:53.366377"
+    },
+    {
+      "headline": "Using List Comprehensions with Conditional Assignment",
+      "shortname": "using_list_comprehensions_with_conditional_assignment",
+      "filename": "Python_tip_using_list_comprehensions_with_conditional_assignment.ipynb",
+      "date": "2025-11-08T02:37:03.010513"
     }
   ]
 }
